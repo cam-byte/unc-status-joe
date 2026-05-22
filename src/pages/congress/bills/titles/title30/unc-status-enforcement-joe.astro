@@ -1,0 +1,646 @@
+---
+const effectiveDate = new Date('2026-06-13T00:00:00');
+const today = new Date();
+const isEnforced = today >= effectiveDate;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>30 U.N.C. Code § 1.1 — UNC Status Enforcement Act (Joe)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --gov-blue: #1a3a5c;
+        --gov-red: #b22234;
+        --gov-gold: #c8a951;
+        --gov-light: #f5f5f0;
+        --gov-border: #c6c6c0;
+        --gov-text: #1a1a1a;
+        --gov-muted: #555;
+        --link: #1a3a8c;
+      }
+
+      body {
+        font-family: 'Source Sans 3', 'Georgia', serif;
+        background: var(--gov-light);
+        color: var(--gov-text);
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .top-banner {
+        background: var(--gov-blue);
+        color: white;
+        font-size: 11px;
+        text-align: center;
+        padding: 4px 16px;
+        letter-spacing: 0.05em;
+      }
+      .top-banner a { color: #a8c8e8; text-decoration: none; }
+
+      header {
+        background: white;
+        border-bottom: 3px solid var(--gov-red);
+      }
+      .header-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 12px 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .seal { width: 70px; height: 70px; flex-shrink: 0; }
+      .site-title-block h1 {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--gov-blue);
+        line-height: 1.2;
+      }
+      .site-title-block .subtitle {
+        font-size: 12px;
+        color: var(--gov-muted);
+        letter-spacing: 0.04em;
+        margin-top: 2px;
+      }
+
+      nav {
+        background: var(--gov-blue);
+        border-bottom: 2px solid var(--gov-gold);
+      }
+      .nav-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 24px;
+        display: flex;
+      }
+      nav a {
+        color: #d0e0f0;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 10px 16px;
+        display: block;
+        letter-spacing: 0.02em;
+        border-right: 1px solid rgba(255,255,255,0.1);
+        transition: background 0.15s;
+      }
+      nav a:hover, nav a.active { background: rgba(255,255,255,0.12); color: white; }
+
+      .page-inner {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 24px;
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 28px;
+      }
+
+      .breadcrumb {
+        font-size: 12px;
+        color: var(--gov-muted);
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--gov-border);
+      }
+      .breadcrumb a { color: var(--link); text-decoration: none; }
+      .breadcrumb a:hover { text-decoration: underline; }
+      .breadcrumb span { margin: 0 6px; }
+
+      .bill-meta-header {
+        background: white;
+        border: 1px solid var(--gov-border);
+        border-top: 4px solid var(--gov-blue);
+        padding: 24px;
+        margin-bottom: 20px;
+      }
+      .bill-id {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--gov-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .bill-title {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--gov-blue);
+        line-height: 1.3;
+        margin-bottom: 14px;
+      }
+      .status-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 5px 12px;
+        border-radius: 3px;
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+      }
+      .status-badge.enacted { background: #1a6b2a; color: white; }
+      .status-badge.pending { background: #b25c00; color: white; }
+      .status-badge .dot {
+        width: 8px; height: 8px;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.7;
+      }
+      .introduced { font-size: 13px; color: var(--gov-muted); }
+
+      .tabs {
+        display: flex;
+        border-bottom: 2px solid var(--gov-border);
+        margin-bottom: 20px;
+      }
+      .tab {
+        padding: 10px 20px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--gov-muted);
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        text-decoration: none;
+      }
+      .tab.active {
+        color: var(--gov-blue);
+        border-bottom-color: var(--gov-blue);
+        background: white;
+      }
+
+      .bill-text-container {
+        background: white;
+        border: 1px solid var(--gov-border);
+        padding: 32px 40px;
+      }
+      .bill-text-container h2 {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 14px;
+        font-weight: 700;
+        text-align: center;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        color: var(--gov-muted);
+      }
+      .bill-number-line {
+        text-align: center;
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 20px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .bill-session-line {
+        text-align: center;
+        font-size: 13px;
+        margin-bottom: 24px;
+        color: var(--gov-muted);
+      }
+      .bill-long-title {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 14px;
+        font-style: italic;
+        text-align: center;
+        margin-bottom: 32px;
+        line-height: 1.7;
+        padding: 0 20px;
+      }
+      .section-header {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 15px;
+        font-weight: 700;
+        margin: 32px 0 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        border-bottom: 1px solid var(--gov-border);
+        padding-bottom: 6px;
+      }
+      .subsection { margin: 16px 0; padding-left: 24px; }
+      .subsection-label { font-weight: 700; font-family: 'Libre Baskerville', Georgia, serif; }
+      .legal-text {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 14.5px;
+        line-height: 1.9;
+        color: #111;
+      }
+      .legal-text p { margin-bottom: 14px; }
+      .cite { font-style: italic; color: var(--gov-muted); font-size: 13px; }
+      .highlight { background: #fff8e1; padding: 2px 4px; border-radius: 2px; font-weight: 700; }
+
+      .enacted-banner {
+        background: #e8f5e9;
+        border: 1px solid #4caf50;
+        border-left: 5px solid #2e7d32;
+        padding: 14px 18px;
+        margin-bottom: 24px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .enacted-banner strong { color: #1a6b2a; }
+      .pending-banner {
+        background: #fff3e0;
+        border: 1px solid #ff9800;
+        border-left: 5px solid #e65100;
+        padding: 14px 18px;
+        margin-bottom: 24px;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+      .pending-banner strong { color: #b25c00; }
+
+      .sidebar { display: flex; flex-direction: column; gap: 16px; }
+      .sidebar-card {
+        background: white;
+        border: 1px solid var(--gov-border);
+        padding: 16px;
+      }
+      .sidebar-card h3 {
+        font-family: 'Libre Baskerville', Georgia, serif;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--gov-blue);
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--gov-border);
+      }
+      .sidebar-card p, .sidebar-card li { font-size: 13px; line-height: 1.55; color: var(--gov-text); }
+      .sidebar-card ul { list-style: none; padding: 0; }
+      .sidebar-card ul li {
+        padding: 5px 0;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .sidebar-card ul li:last-child { border-bottom: none; }
+      .check { color: #1a6b2a; font-weight: 700; }
+
+      .progress-container { margin-top: 8px; }
+      .progress-step {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 12px;
+        border-left: 2px solid var(--gov-border);
+        padding-left: 16px;
+        margin-left: 8px;
+        position: relative;
+      }
+      .progress-step::before {
+        content: '';
+        width: 12px; height: 12px;
+        border-radius: 50%;
+        background: var(--gov-border);
+        position: absolute;
+        left: -7px;
+        top: 10px;
+      }
+      .progress-step.done::before { background: #1a6b2a; }
+      .progress-step.current::before { background: var(--gov-gold); }
+      .step-label { font-weight: 600; color: var(--gov-blue); }
+      .step-date { color: var(--gov-muted); font-size: 11px; }
+
+      .stat-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 6px 0;
+        font-size: 13px;
+        border-bottom: 1px solid #eee;
+      }
+      .stat-row:last-child { border-bottom: none; }
+      .stat-label { color: var(--gov-muted); }
+      .stat-value { font-weight: 600; }
+
+      footer {
+        margin-top: 48px;
+        border-top: 2px solid var(--gov-border);
+        background: white;
+        padding: 24px;
+        font-size: 12px;
+        color: var(--gov-muted);
+        text-align: center;
+        line-height: 1.7;
+      }
+      footer strong { color: var(--gov-blue); }
+
+      @media (max-width: 768px) {
+        .page-inner { grid-template-columns: 1fr; }
+        .bill-text-container { padding: 20px; }
+        .header-inner { flex-wrap: wrap; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="top-banner">
+      An official website of the <strong>United Nations of Chronological Accountability (U.N.C.A.)</strong> &nbsp;|&nbsp;
+      <a href="#">Learn how to verify this site fr</a>
+    </div>
+
+    <header>
+      <div class="header-inner">
+        <svg class="seal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="48" fill="none" stroke="#1a3a5c" stroke-width="3"/>
+          <circle cx="50" cy="50" r="40" fill="none" stroke="#1a3a5c" stroke-width="1"/>
+          <text x="50" y="30" text-anchor="middle" font-size="7" fill="#1a3a5c" font-family="serif" font-weight="bold">UNITED NATIONS OF</text>
+          <text x="50" y="39" text-anchor="middle" font-size="7" fill="#1a3a5c" font-family="serif" font-weight="bold">CHRONOLOGICAL</text>
+          <text x="50" y="48" text-anchor="middle" font-size="7" fill="#1a3a5c" font-family="serif" font-weight="bold">ACCOUNTABILITY</text>
+          <text x="50" y="62" text-anchor="middle" font-size="22" fill="#c8a951">👴</text>
+          <text x="50" y="80" text-anchor="middle" font-size="6" fill="#b22234" font-family="serif" font-weight="bold">EST. WHENEVER JOE WAS BORN</text>
+          <path d="M 10 50 A 40 40 0 0 1 90 50" fill="none" stroke="#c8a951" stroke-width="1.5"/>
+          <path d="M 10 50 A 40 40 0 0 0 90 50" fill="none" stroke="#c8a951" stroke-width="1.5"/>
+        </svg>
+        <div class="site-title-block">
+          <h1>UNCTrack.gov</h1>
+          <div class="subtitle">TRACKING LEGISLATION OF THE UNITED NATIONS OF CHRONOLOGICAL ACCOUNTABILITY &nbsp;•&nbsp; CONGRESS OF BIRTHDAY-BASED LAW</div>
+        </div>
+      </div>
+    </header>
+
+    <nav>
+      <div class="nav-inner">
+        <a href="#" class="active">Bills & Legislation</a>
+        <a href="#">Unc Registry</a>
+        <a href="#">30-Foot Radius Map</a>
+        <a href="#">Age Verification</a>
+        <a href="#">Appeals (Denied)</a>
+        <a href="#">Contact Congress</a>
+      </div>
+    </nav>
+
+    <div class="page-inner">
+      <main>
+        <div class="breadcrumb">
+          <a href="#">UNCTrack.gov</a><span>›</span>
+          <a href="#">congress</a><span>›</span>
+          <a href="#">bills</a><span>›</span>
+          <a href="#">titles</a><span>›</span>
+          <a href="#">title30</a><span>›</span>
+          unc-status-enforcement-joe
+        </div>
+
+        <div class="bill-meta-header">
+          <div class="bill-id">30 U.N.C. CODE § 1.1 &nbsp;·&nbsp; 119th U.N.C.A. Congress &nbsp;·&nbsp; 2026</div>
+          <div class="bill-title">Unc Status Enforcement Act (Joe) — Official Induction & Radius Enforcement Act of 2026</div>
+          <div class="status-row">
+            {isEnforced ? (
+              <span class="status-badge enacted">
+                <span class="dot"></span>
+                ENACTED — UNC STATUS ACTIVE
+              </span>
+            ) : (
+              <span class="status-badge pending">
+                <span class="dot"></span>
+                PENDING ENACTMENT — AWAITING MIDNIGHT
+              </span>
+            )}
+            <span class="introduced">Introduced: June 13, 2026 &nbsp;·&nbsp; Sponsor: The Boys™</span>
+          </div>
+        </div>
+
+        <div class="tabs">
+          <a href="#" class="tab active">Full Text</a>
+          <a href="#" class="tab">Summary</a>
+          <a href="#" class="tab">Cosponsors (All of Us)</a>
+          <a href="#" class="tab">Amendments (Denied)</a>
+          <a href="#" class="tab">Related Bills</a>
+        </div>
+
+        {isEnforced ? (
+          <div class="enacted-banner">
+            <strong>⚖️ THIS LEGISLATION IS NOW IN FULL FORCE AND EFFECT.</strong><br/>
+            As of midnight on June 13, 2026, the individual known as Joe has been officially, unequivocally, and legally ("fr fr") inducted into Unc Status. This determination is <strong>final, binding, and cannot be appealed</strong>. See 30 U.N.C. Code § 4.2 (No Takebacks).
+          </div>
+        ) : (
+          <div class="pending-banner">
+            <strong>⏳ PENDING ENACTMENT.</strong><br/>
+            This legislation takes effect precisely at midnight on June 13, 2026. Countdown enforcement operations are currently underway. Joe is advised to prepare accordingly.
+          </div>
+        )}
+
+        <div class="bill-text-container">
+          <h2>119th Congress of the United Nations of Chronological Accountability</h2>
+          <div class="bill-number-line">30 U.N.C. Code § 1.1</div>
+          <div class="bill-session-line">Second Session &nbsp;·&nbsp; Enacted June 13, 2026</div>
+
+          <div class="bill-long-title">
+            An Act to formally codify, enforce, and make legally binding ("fr fr") the induction of the individual known as Joe into the status of "Unc," to establish jurisdiction of said status within a thirty (30) foot radius, and to provide for related and sundry hilarious matters.
+          </div>
+
+          <div class="legal-text">
+
+            <div class="section-header">Section 1 — Short Title</div>
+            <p>This Act may be cited as the <strong>"Unc Status Enforcement Act of 2026"</strong> or, alternatively, the <strong>"Happy 30th Joe, You Old Man, Act."</strong></p>
+
+            <div class="section-header">Section 1.1 — Enforcement of "Unc" Status</div>
+
+            <div class="subsection">
+              <p><span class="subsection-label">(a) Induction.</span> Effective precisely at midnight on the anniversary of his 30th year, the individual known as <span class="highlight">Joe</span> shall be officially, unequivocally, and in a legally binding manner <em>("fr fr")</em> inducted into <strong>"Unc Status,"</strong> wherein any subsequent reference to "Unc" within a 30-foot radius—provided no individual present exceeds Joe's chronological age—shall henceforth and furthermore apply exclusively to him.</p>
+            </div>
+
+            <div class="subsection">
+              <p><span class="subsection-label">(b) Scope of Jurisdiction.</span> The 30-foot radius referenced in subsection (a) shall be measured from any point on Joe's person at the time of the utterance. Said radius is non-negotiable and not subject to modification by—</p>
+              <div class="subsection">
+                <p>(1) Joe claiming he "doesn't feel 30";</p>
+                <p>(2) Joe asserting he "still got it";</p>
+                <p>(3) Joe citing mileage, vibes, or energy levels as evidence to the contrary;</p>
+                <p>(4) any comparison to a celebrity who is also 30; or</p>
+                <p>(5) a good haircut.</p>
+              </div>
+            </div>
+
+            <div class="subsection">
+              <p><span class="subsection-label">(c) Age Proviso.</span> Subsection (a) shall be operative only when no individual present within the designated radius exceeds Joe's chronological age. In the event an individual older than Joe is present, jurisdiction shall transfer to the elder party pursuant to 30 U.N.C. § 2.4 (The Bigger Unc Doctrine), and Joe shall be temporarily reclassified as a "Young King" for the duration of such presence, at which time he shall be insufferably smug about it.</p>
+            </div>
+
+            <div class="subsection">
+              <p><span class="subsection-label">(d) Enforcement Mechanisms.</span> Any individual within the applicable radius who refers to Joe by any title other than "Unc" or its recognized variants ("Uncle," "Old Head," "Big Homie Who Has a Good Moisturizer Routine Now") shall be subject to—</p>
+              <div class="subsection">
+                <p>(1) mild social ridicule;</p>
+                <p>(2) a knowing look from everyone else in the room;</p>
+                <p>(3) a lecture from Joe about how he doesn't feel different, he just feels <em>wiser.</em></p>
+              </div>
+            </div>
+
+            <div class="section-header">Section 1.2 — Findings and Declarations</div>
+
+            <p>The Congress of the United Nations of Chronological Accountability hereby finds and declares the following:</p>
+
+            <div class="subsection">
+              <p><span class="subsection-label">(1)</span> Joe has been a real one. A certified mentor, a dependable homie, and a person who inexplicably always seems to have his life together in ways that make the rest of us feel slightly behind schedule.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(2)</span> Joe's transition into the third decade of life represents not a diminishment, but an elevation into a higher tier of cultural authority, wherein his opinions on music from the early 2000s shall be considered canon.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(3)</span> The back pain is real and Congress acknowledges this, particularly in light of the ACL incident referenced in § 1.2a(ii). We see you, Joe. Stretch in the morning. Ice it.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(4)</span> Joe has been a genuinely excellent friend and mentor, and this legislation, while deeply stupid, is an expression of love. Congress loves that guy.</p>
+            </div>
+
+            <div class="section-header">Section 1.2a — The Legislative Record of Joe</div>
+
+            <p>In further support of the findings above, Congress enters into the official record the following established facts regarding the individual known as Joe, each of which independently qualifies him for Unc Status under the Accelerated Induction Clause:</p>
+
+            <div class="subsection">
+              <p><span class="subsection-label">(i) Commitment to the Beautiful Game.</span> Joe is a soccer person. This is admirable and also a little European of him, which Congress finds appropriate for someone entering their 30s. His loyalty to the sport is noted, and his ACL—referenced in subsection (ii)—was almost certainly obtained in pursuit of said sport, which makes it legendary rather than unfortunate. Congress respects the sacrifice.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(ii) The ACL Incident.</span> Joe tore his ACL. Congress formally acknowledges that tearing your ACL is extremely Unc behavior and in fact accelerated his induction timeline by a period of no less than three (3) years. The injury is hereby entered into the Unc Hall of Record under the category of "War Wounds Sustained in the Field of Being Too Competitive for Someone His Age." He is encouraged to never fully let it go as a conversation topic.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(iii) The Yankee Stadium Incident.</span> Joe was shot in the finger at Yankee Stadium. Congress declines to elaborate on this as the facts speak for themselves. What Congress will note is that surviving an incident at Yankee Stadium and continuing to function as a normal person is the kind of backstory that makes a man a <em>legend</em> and, more relevantly, an <em>Unc</em>. This subsection shall hereinafter be referred to as the "Yankee Stadium Doctrine" and may be cited in any future dispute about whether Joe has lived.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(iv) Espresso Consumption.</span> Joe drinks espresso shots. Not coffee—<em>espresso.</em> Straight. This is something a person does when they have given up on asking for permission and have simply decided to be that way. Congress considers this to be one of the earliest documented indicators of his Unc trajectory and regrets not acting sooner.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">(v) Full Stack Legend Status.</span> Joe is, per the official record, a front end and full stack <em>legend.</em> Not a practitioner. Not a developer. A <em>legend.</em> Congress finds that this designation, conferred by his peers and not self-applied (which would disqualify it), constitutes independent grounds for elevated status under 30 U.N.C. § 7.7 (The Goat Clause) and is hereby cited as a mitigating factor against any argument that turning 30 is a bad thing. It is not. It is simply what legends do.</p>
+            </div>
+
+            <div class="section-header">Section 1.3 — Definitions</div>
+
+            <div class="subsection">
+              <p><span class="subsection-label">"Unc"</span> means an elder statesman of the peer group, characterized by: a deep knowledge of things the youth find inexplicably retro; an opinion about the "right" way to do things that is sometimes correct; the moral authority to say "I told you so" at least three (3) times per calendar year; and a birthday cake with so many candles the fire marshal gets involved.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">"Fr Fr"</span> means in a legally binding manner. <em>See</em> Black's Law Dictionary, 12th ed. (allegedly).</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">"The Boys™"</span> means the collective of individuals who got Joe into this.</p>
+            </div>
+            <div class="subsection">
+              <p><span class="subsection-label">"Young King (Temporary)"</span> shall have the meaning ascribed in § 1.1(c).</p>
+            </div>
+
+            <div class="section-header">Section 1.4 — Non-Severability</div>
+            <p>If any provision of this Act is held unconstitutional, invalid, or "kinda mean bro," the entire Act shall remain in full force and effect anyway because Joe is 30 and that's just facts. No provision of this Act shall be severed. They are all load-bearing.</p>
+
+            <div class="section-header">Section 1.5 — Effective Date</div>
+            <p>This Act shall take effect at precisely midnight on June 13, 2026, at the moment of Joe's entry into his thirtieth year. There shall be no grace period. There shall be no grandfather clause. There shall be no "but wait I have good skin" exemption. Unc Status is <strong>immediate and perpetual.</strong></p>
+
+            <br/>
+            <p class="cite">Enacted by the 119th Congress of the United Nations of Chronological Accountability. Passed by a margin of unanimous consent (The Boys™ voted yes, Joe abstained on the grounds of "this is embarrassing," which Congress notes is a very Unc thing to say).</p>
+            <br/>
+            <p class="cite">30 U.N.C. Code § 1.1 (2026). For reference only. Not an actual law. But fr fr.</p>
+          </div>
+        </div>
+      </main>
+
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3>Legislative Status</h3>
+          <div class="progress-container">
+            <div class="progress-step done">
+              <div>
+                <div class="step-label">Introduced</div>
+                <div class="step-date">June 13, 2026</div>
+              </div>
+            </div>
+            <div class="progress-step done">
+              <div>
+                <div class="step-label">Referred to Committee</div>
+                <div class="step-date">Committee on Birthday-Based Law</div>
+              </div>
+            </div>
+            <div class="progress-step done">
+              <div>
+                <div class="step-label">Passed Congress</div>
+                <div class="step-date">Unanimous — The Boys™</div>
+              </div>
+            </div>
+            <div class="progress-step done">
+              <div>
+                <div class="step-label">Signed Into Law</div>
+                <div class="step-date">Midnight, June 13, 2026</div>
+              </div>
+            </div>
+            <div class={`progress-step ${isEnforced ? 'done' : 'current'}`}>
+              <div>
+                <div class="step-label">Enforced Upon Joe</div>
+                <div class="step-date">{isEnforced ? '✓ Currently Active' : 'Pending Midnight'}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Bill Details</h3>
+          <div class="stat-row"><span class="stat-label">Citation</span><span class="stat-value">30 U.N.C. § 1.1</span></div>
+          <div class="stat-row"><span class="stat-label">Sponsor</span><span class="stat-value">The Boys™</span></div>
+          <div class="stat-row"><span class="stat-label">Cosponsors</span><span class="stat-value">Everyone Here</span></div>
+          <div class="stat-row"><span class="stat-label">Radius</span><span class="stat-value">30 feet</span></div>
+          <div class="stat-row"><span class="stat-label">Appeals</span><span class="stat-value">Denied</span></div>
+          <div class="stat-row"><span class="stat-label">Loopholes</span><span class="stat-value">None. We checked.</span></div>
+          <div class="stat-row"><span class="stat-label">Joe's Opinion</span><span class="stat-value">Abstained</span></div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Key Provisions</h3>
+          <ul>
+            <li><span class="check">✓</span> Unc Status: Immediate & Perpetual</li>
+            <li><span class="check">✓</span> 30-Foot Jurisdiction Enforced</li>
+            <li><span class="check">✓</span> "Still Got It" Defense Rejected</li>
+            <li><span class="check">✓</span> Good Haircut Exemption: Denied</li>
+            <li><span class="check">✓</span> Bigger Unc Doctrine: Operative</li>
+            <li><span class="check">✓</span> ACL: War Wound on the Record</li>
+            <li><span class="check">✓</span> Yankee Stadium Doctrine: Cited</li>
+            <li><span class="check">✓</span> Espresso: Legally Unc Behavior</li>
+            <li><span class="check">✓</span> Full Stack Legend: Confirmed</li>
+            <li><span class="check">✓</span> Soccer Guy: Entered Into Record</li>
+            <li><span class="check">✓</span> Non-Severability: All Load-Bearing</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Related Legislation</h3>
+          <ul>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 2.4 — The Bigger Unc Doctrine</a></li>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 4.2 — No Takebacks Act</a></li>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 6.1 — Old Head Music Authority</a></li>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 7.7 — The Goat Clause</a></li>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 8.3 — Yankee Stadium Doctrine</a></li>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 9.0 — Moisturizer Credibility Act</a></li>
+            <li><a href="#" style="color:var(--link);text-decoration:none;font-size:13px;">30 U.N.C. § 11.1 — ACL Hall of Record</a></li>
+          </ul>
+        </div>
+
+        <div class="sidebar-card">
+          <h3>Public Comment</h3>
+          <p style="margin-bottom:10px;">The public comment period for this legislation has closed. Joe's objections were received, read aloud to the room, and subsequently tabled.</p>
+          <p class="cite">Congress thanks Joe for his service and wishes him a happy birthday.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer>
+      <strong>UNCTrack.gov</strong> — An official (unofficial) resource of the United Nations of Chronological Accountability.<br/>
+      All rights reserved. Joe has no rights in this matter. See § 1.4.<br/>
+      <span class="cite">Not affiliated with the U.S. Government, the UN, or anyone with actual legal authority. This is just for Joe. Happy birthday buddy.</span>
+    </footer>
+
+  </body>
+</html>
